@@ -1,17 +1,35 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import org.example.frontend.Window;
+import org.example.frontend.Window;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+import java.awt.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Rectangle usableBounds = GraphicsEnvironment
+                .getLocalGraphicsEnvironment()
+                .getMaximumWindowBounds();
+
+        int playerWindowWidth = (int)(usableBounds.getWidth()*0.7 );
+        int playerWindowHeight = (int)(usableBounds.getHeight() *0.3);
+        int enemyWindowWidth = (int)(usableBounds.getWidth() - playerWindowWidth);
+        int enemyWindowHeight = (int)usableBounds.getHeight();
+
+        Window playerWindow = new Window(
+                "Player Window",
+                playerWindowWidth,
+                playerWindowHeight,
+                0,
+                (int)usableBounds.getHeight()-playerWindowHeight
+        );
+        Window enemyWindow = new Window(
+                "Enemy Window",
+                enemyWindowWidth,
+                enemyWindowHeight,
+                playerWindowWidth ,
+                0
+        );
     }
 }
