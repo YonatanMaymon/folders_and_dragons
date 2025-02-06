@@ -1,5 +1,6 @@
 package org.example.backend.gameLogic;
 
+import org.example.Main;
 import org.example.data_records.AbilityUseData;
 import org.example.data_records.BattleData;
 import org.example.data_records.MapAndStats;
@@ -14,6 +15,8 @@ import org.example.backend.gameLogic.visitors.UnitMovement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -23,7 +26,7 @@ public class LevelMap extends MapManager {
     public TileMap tileMap;
     int num_col=0;
     int num_row=0;
-    private String level_dir = LEVEL_FILE_DIR + "level";
+    private Path level_dir = Paths.get(Main.get_main_path().toString(), "levels_dir","level");
     public boolean levelPlaying = true;
     public Consumer<BattleData> onCombat;
     public Consumer<AbilityUseData> onAbilityUse;
@@ -33,8 +36,8 @@ public class LevelMap extends MapManager {
 
     public LevelMap(int level, Player player, Consumer<BattleData> onCombat, Consumer<AbilityUseData> onAbilityUse, Consumer<String> onDeath, Consumer<MapAndStats> onMapAndStatsUpdate) throws IOException {
         super(player);
-        level_dir+=level+ ".txt";
-        BufferedReader reader = new BufferedReader(new FileReader(level_dir));
+        level_dir = Paths.get(level_dir.toString()+level+ ".txt");
+        BufferedReader reader = new BufferedReader(new FileReader(level_dir.toFile()));
         String line;
         while ((line = reader.readLine()) != null){
             num_col = Math.max(num_col, line.length());
@@ -48,7 +51,7 @@ public class LevelMap extends MapManager {
     }
 
     public void loudMap() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(level_dir));
+        BufferedReader reader = new BufferedReader(new FileReader(level_dir.toFile()));
         String line;
         int j = 0;
         while ((line = reader.readLine()) != null){

@@ -7,7 +7,6 @@ import org.example.backend.Tiles.Wall;
 import java.util.ArrayList;
 
 public class MapManager {
-    public static final String LEVEL_FILE_DIR = "levels_dir\\levels_dir\\";
     protected ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Wall> walls = new ArrayList<>();
     public Player player;

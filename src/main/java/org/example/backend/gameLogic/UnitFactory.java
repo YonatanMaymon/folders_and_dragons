@@ -34,21 +34,17 @@ public class UnitFactory {
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
                 // Monsters
-                () -> new Monster('s', "Lannister Soldier", 80, 8, 3, 3, 25),
-                () -> new Monster('k', "Lannister Knight", 200, 14, 8, 4, 50),
-                () -> new Monster('q', "Queen's Guard", 400, 20, 15, 5, 100),
-                () -> new Monster('z', "Wright", 600, 30, 15, 3, 100),
-                () -> new Monster('b', "Bear-Wright", 1000, 75, 30, 4, 250),
-                () -> new Monster('g', "Giant-Wright", 1500, 100, 40, 5, 500),
-                () -> new Monster('w', "White Walker", 2000, 150, 50, 6, 1000),
-                () -> new Boss('M', "The Mountain", 1000, 60, 25, 6, 5,500),
-                () -> new Boss('C', "Queen Cersei", 100, 10, 10, 1,8, 1000),
-                () -> new Boss('K', "Night's King", 5000, 300, 150, 8, 3,5000),
+                () -> new Monster('g', "Goblin", 30, 5, 2, 4, 15),
+                () -> new Monster('o', "Ogre", 120, 12, 6, 6, 50),
+                () -> new Monster('d', "Specter", 50, 7, 3, 10, 40),
+                () -> new Boss('D', "Dreadlord Varkas", 300, 25, 15, 12, 3, 500),
+                () -> new Boss('A', "Ancient War Titan", 500, 35, 20, 10, 4, 750),
 
                 // Traps
-                () -> new Trap('B', "Bonus Trap", 1, 1, 1, 250, 1, 5),
-                () -> new Trap('Q', "Queen's Trap", 250, 50, 10, 100, 3, 7),
-                () -> new Trap('D', "Death Trap", 500, 100, 20, 250, 1, 10)
+                () -> new Trap('S', "Spike Pit", 50, 12, 2, 30, 5, 10),
+                () -> new Trap('B', "Blade Swing", 40, 15, 3, 40, 4, 8),
+                () -> new Trap('F', "Flame Jet", 60, 20, 5, 50, 6, 12)
+
         );
 
         return enemies.stream().collect(Collectors.toMap(s -> s.get().get_tile(), Function.identity()));
@@ -56,13 +52,10 @@ public class UnitFactory {
 
     private List<Supplier<Player>> initPlayers() {
         return Arrays.asList(
-                () -> new Warrior("Jon Snow", 300, 30, 4, 3),
-                () -> new Warrior("The Hound", 400, 20, 6, 5),
-                () -> new Mage("Melisandre", 100, 5, 1, 300, 30, 15, 5, 6),
-                () -> new Mage("Thoros of Myr", 250, 25, 4, 150, 20, 20, 3, 4),
-                () -> new Rogue("Arya Stark", 150, 40, 2, 20),
-                () -> new Rogue("Bronn", 250, 35, 3, 50),
-                () -> new Hunter("Ygritte", 220, 30, 2, 6)
+                () -> new Hunter("Shadowfang", 100, 15, 5, 8),
+                () -> new Mage("Arcanis the Wise", 80, 20, 3, 100, 10, 3, 25, 6),
+                () -> new Rogue("Silent Dagger", 90, 18, 4, 5),
+                () -> new Warrior("Ironclad Brutus", 120, 25, 10, 3)
         );
     }
 

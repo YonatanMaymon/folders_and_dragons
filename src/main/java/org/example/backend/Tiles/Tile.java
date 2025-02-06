@@ -4,6 +4,7 @@ import org.example.backend.gameLogic.Position;
 
 public class Tile {
     private char _tile;
+    protected String _name = "floor";
     Position _position;
     public Tile( char tile){
         this._tile = tile;
@@ -29,5 +30,6 @@ public class Tile {
     public void set_position(Position _position) {
         this._position = _position;
     }
+    public String get_name() {return _name;}
 
 }

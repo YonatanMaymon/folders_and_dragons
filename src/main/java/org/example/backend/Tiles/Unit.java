@@ -8,7 +8,6 @@ import org.example.enums.DIRECTION;
 
 public class Unit extends Tile{
     public boolean isAlive = true;
-    private final String _name;
     public Health health;
     private int _attackPoints;
     private int _defencePoints;
@@ -77,5 +76,4 @@ public class Unit extends Tile{
         this._defencePoints += amount;
     }
 
-    public String get_name() {return _name;}
 }
