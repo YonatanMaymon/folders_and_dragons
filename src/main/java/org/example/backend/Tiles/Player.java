@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 public class Player extends Unit implements HeroicUnit{
     int _xp;
     int _lvl;
+    protected Runnable onDeath;
     protected Consumer<AbilityUseData> onAbilityUse = (AbilityUseData)->{};
     protected ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -31,10 +32,14 @@ public class Player extends Unit implements HeroicUnit{
     }
     public Map<String,Integer> accept(PlayersVisitor visitor){return null;}
 
+    public void set_on_death(Runnable onDeath) {
+        this.onDeath = onDeath;
+    }
+
     @Override
     void on_death() {
         super.on_death();
-        set_tile('X');
+        onDeath.run();
     }
 
     protected ArrayList<Enemy> getHitList(int range){

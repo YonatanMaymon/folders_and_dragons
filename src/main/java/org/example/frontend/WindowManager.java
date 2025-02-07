@@ -74,4 +74,15 @@ public class WindowManager {
         enemyWindow.set_on_key_pressed(on_key_press);
     }
 
+    public void on_game_over(){
+        set_on_key_press(data ->{});
+        update(FrontUtil.get_game_over_map());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.exit(0);
+    }
+
 }

@@ -20,6 +20,7 @@ public class GameManager {
     public void start_game(Player player){
         windowManager.load_windows();
         player.setOnAbilityUse(windowManager.enemyWindow::print_ability_use_log);
+        player.set_on_death(windowManager::on_game_over);
         try {
             levelMap = new LevelMap(1,
                     windowManager.enemyWindow::on_battle,
