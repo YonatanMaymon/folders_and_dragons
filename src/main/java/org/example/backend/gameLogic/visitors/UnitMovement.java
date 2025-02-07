@@ -34,12 +34,7 @@ public class UnitMovement implements Visitor {
     }
 
     @Override
-    public void visit_player(Player player) {
-        Interact interact = new Interact(map, player);
-//        char input = UI.get_player_input();
-//        Position new_pos = player.get_next_position(input);
-//        map.tileMap.getTile(new_pos).accept(interact);
-    }
+    public void visit_player(Player player) {}
 
     @Override
     public void visit_boss(Boss boss) {

@@ -44,7 +44,6 @@ public class Warrior extends Player {
 
     @Override
     public void update() {
-        super.update();
         this.ability_cooldown.on_tick();
     }
     @Override

@@ -1,10 +1,5 @@
 package org.example;
 
-import org.example.frontend.Window;
-import org.example.frontend.Window;
-import org.example.frontend.WindowManager;
-
-import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -13,7 +8,6 @@ public class Main {
         return Paths.get("src","main","java","org","example");
     }
     public static void main(String[] args) {
-        WindowManager windowManager = new WindowManager();
-        windowManager.load_windows();
+        GameManager gameManager = new GameManager();
     }
 }

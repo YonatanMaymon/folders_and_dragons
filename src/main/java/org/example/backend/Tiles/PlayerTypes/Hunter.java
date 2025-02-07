@@ -55,7 +55,6 @@ public class Hunter extends Player {
 
     @Override
     public void update() {
-        super.update();
         if(tickCount == 10){
             arrowCount += get_lvl();
             tickCount = 0;

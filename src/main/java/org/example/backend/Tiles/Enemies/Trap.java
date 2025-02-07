@@ -24,7 +24,6 @@ public class Trap extends Enemy{
 
     @Override
     public void update() {
-        super.update();
         visible = _tickCount<_visibilityTime;
         if(visible) set_tile(originTile);
         else set_tile('.');

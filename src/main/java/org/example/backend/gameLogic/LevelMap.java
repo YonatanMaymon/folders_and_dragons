@@ -1,9 +1,7 @@
 package org.example.backend.gameLogic;
 
-import org.example.Main;
-import org.example.data_records.AbilityUseData;
+import org.example.backend.gameLogic.visitors.Interact;
 import org.example.data_records.BattleData;
-import org.example.data_records.MapAndStats;
 import org.example.backend.Tiles.Enemies.Enemy;
 import org.example.backend.Tiles.Player;
 import org.example.backend.Tiles.PlayerTypes.PlayerStatExtractor;
@@ -23,20 +21,19 @@ import java.util.function.Consumer;
 
 public class LevelMap extends MapManager {
     UnitMovement unitMovement = new UnitMovement(this);
+
+    private Path level_dir = get_level_dir();
     public TileMap tileMap;
     int num_col=0;
     int num_row=0;
-    private Path level_dir = Paths.get(Main.get_main_path().toString(), "levels_dir","level");
     public boolean levelPlaying = true;
     public Consumer<BattleData> onCombat;
-    public Consumer<AbilityUseData> onAbilityUse;
     public Consumer<String> onDeath;
-    public Consumer<MapAndStats> onMapAndStatsUpdate;
+    public Consumer<Map<String,Integer>> onMapAndStatsUpdate;
     private final PlayerStatExtractor playerStatExtractor = new PlayerStatExtractor();
 
-    public LevelMap(int level, Player player, Consumer<BattleData> onCombat, Consumer<AbilityUseData> onAbilityUse, Consumer<String> onDeath, Consumer<MapAndStats> onMapAndStatsUpdate) throws IOException {
-        super(player);
-        level_dir = Paths.get(level_dir.toString()+level+ ".txt");
+    public LevelMap(int level, Consumer<BattleData> onCombat, Consumer<String> onDeath, Consumer<Map<String,Integer>> onMapAndStatsUpdate) throws IOException {
+        level_dir = Paths.get(level_dir.toString(),"level"+level+ ".txt");
         BufferedReader reader = new BufferedReader(new FileReader(level_dir.toFile()));
         String line;
         while ((line = reader.readLine()) != null){
@@ -45,12 +42,12 @@ public class LevelMap extends MapManager {
         }
         tileMap = new TileMap(num_row,num_col);
         this.onCombat = onCombat;
-        this.onAbilityUse = onAbilityUse;
         this.onDeath = onDeath;
         this.onMapAndStatsUpdate = onMapAndStatsUpdate;
     }
 
-    public void loudMap() throws IOException {
+    public void loudMap(Player player) throws IOException {
+        this.player = player;
         BufferedReader reader = new BufferedReader(new FileReader(level_dir.toFile()));
         String line;
         int j = 0;
@@ -62,18 +59,19 @@ public class LevelMap extends MapManager {
             j++;
         }
         reader.close();
-        player.setOnAbilityUse(onAbilityUse);
         player.setEnemies(getEnemies());
         for (Wall wall : getWalls()){tileMap.loud_tile_on_map(wall);}
         for (Enemy enemy : getEnemies()){tileMap.loud_tile_on_map(enemy);}
         tileMap.loud_tile_on_map(player);
     }
 
-    public void update(){
-        Map<String, Integer> stats = player.accept(playerStatExtractor);
-        onMapAndStatsUpdate.accept(new MapAndStats(tileMap.to_string(),stats));
+    public void update(Character input){
+        onMapAndStatsUpdate.accept(player.accept(playerStatExtractor));
         player.update();
-        player.accept(unitMovement);
+        Interact interact = new Interact(this, player);
+        Position new_pos = player.get_next_position(input);
+        tileMap.getTile(new_pos).accept(interact);
+
         ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy enemy: enemies){
             if (!enemy.isAlive){

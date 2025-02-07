@@ -34,7 +34,6 @@ public class Rogue extends Player {
 
     @Override
     public void update() {
-        super.update();
         energy.replenish_resource(10);
     }
 

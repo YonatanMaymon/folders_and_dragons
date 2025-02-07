@@ -39,7 +39,6 @@ public class Mage extends Player {
 
     @Override
     public void update() {
-        super.update();
         mana.replenish_resource(get_lvl());
     }
 

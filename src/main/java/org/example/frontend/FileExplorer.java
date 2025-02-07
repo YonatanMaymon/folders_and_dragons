@@ -11,9 +11,7 @@ import java.nio.file.StandardCopyOption;
 public class FileExplorer {
     File folder = new File(Main.get_main_path().toString(),"game");
     File image_folder = new File(Main.get_main_path().toString(), "images");
-    private String[][] tileMap;
-    public FileExplorer(String[][] tileMap){
-        this.tileMap = tileMap;
+    public FileExplorer(){
         if (!folder.exists()) {
             boolean created = folder.mkdirs();
             if (!created) {
@@ -23,13 +21,13 @@ public class FileExplorer {
     }
 
     private String get_new_name(int x, int y){
-        return x + "_" + y + ".jpeg";
+        return x + "_" + y + ".jpg";
     }
     Path get_image_path(String fileName){
-        return new File(image_folder, fileName+ ".jpeg").toPath();
+        return new File(image_folder, fileName+ ".jpg").toPath();
     }
 
-    public void load_folder() {
+    public void load_folder(String[][] tileMap) {
         for(int i= 0; i< tileMap.length;i++){
             for (int j = 0; j<tileMap[i].length; j++){
                 Path sourcePath = get_image_path(tileMap[i][j]);

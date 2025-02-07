@@ -27,7 +27,7 @@ public class Util {
         return random.nextInt(rollStat);
     }
     public static int get_max_lvl(){
-        File dir = new File(MapManager.LEVEL_FILE_DIR);
+        File dir = MapManager.get_level_dir().toFile();
         File [] listOfFiles = dir.listFiles();
         int max_lvl = 0;
         for (File file : listOfFiles){
