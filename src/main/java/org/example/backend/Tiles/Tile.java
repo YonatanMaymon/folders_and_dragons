@@ -3,8 +3,9 @@ package org.example.backend.Tiles;
 import org.example.backend.gameLogic.Position;
 
 public class Tile {
-    private char _tile;
-    protected String _name = "floor";
+    private final char _tile;
+    public static final String DEFAULT_NAME = "floor";
+    protected String _name = DEFAULT_NAME;
     Position _position;
     public Tile( char tile){
         this._tile = tile;
@@ -21,8 +22,6 @@ public class Tile {
         return _tile;
     }
 
-    protected void set_tile(char tile){_tile = tile;}
-
     public Position get_position() {
         return _position;
     }
@@ -31,5 +30,6 @@ public class Tile {
         this._position = _position;
     }
     public String get_name() {return _name;}
+    public void set_name(String name){_name =name;}
 
 }

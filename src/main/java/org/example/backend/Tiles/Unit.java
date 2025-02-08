@@ -41,7 +41,6 @@ public class Unit extends Tile{
 
     void on_death(){
         isAlive = false;
-        set_tile('.');
     }
 
     public int take_damage(int damage){

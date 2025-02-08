@@ -51,8 +51,10 @@ public class Boss extends Enemy implements HeroicUnit {
         if (EnemyUtil.is_player_in_range(this,player,visionRange)) {
             if (combatTicks >= abilityFrequency)
                 return DIRECTION.CAST_ABILITY;
-            combatTicks ++;
-            return EnemyUtil.get_direction_based_on_player(this, player);
+            else {
+                combatTicks++;
+                return EnemyUtil.get_direction_based_on_player(this, player);
+            }
         }
         else return Util.get_random_direction();
     }

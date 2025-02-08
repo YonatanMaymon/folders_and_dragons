@@ -37,8 +37,8 @@ public class WindowManager {
         });
     }
     public void load_windows(){
-        load_gui_windows();
         load_folder_explorer();
+        load_gui_windows();
     }
     public void update(String[][] tileNames){
         fileExplorer.load_folder(tileNames);
